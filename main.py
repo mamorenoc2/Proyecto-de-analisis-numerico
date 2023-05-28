@@ -34,8 +34,6 @@ def bisection():
         xl = float(request.form['xl'])
         xu = float(request.form['xu'])
         es = float(request.form['es'])
-        print(func, xl, xu, es)
-        
         result = Bisec(func, xl, xu, es)
         print(result)
         
@@ -43,10 +41,18 @@ def bisection():
     
     return render_template('biseccion.html', result=None)
 
-@app.route("/busqincr")
+@app.route("/busqincr", methods=['POST', 'GET'])
 def busqincr():
-    result = Busqueda_Incremental('sin(x)',-7,7,0.3)
-    return render_template('busqueda_incr.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        ecuacion = request.form['func']
+        a = float(request.form['xl'])
+        b = float(request.form['xu'])
+        deltaX = float(request.form['es'])
+        result = Busqueda_Incremental(ecuacion, a, b, deltaX)
+        return render_template('busqueda_incr.html', result=result)
+        
+    return render_template('busqueda_incr.html', result=None)
 
 @app.route("/pf")
 def pf():
