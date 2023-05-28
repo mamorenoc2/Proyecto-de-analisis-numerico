@@ -41,12 +41,12 @@ def secante(fx,a,b,tolera,iteraciones):
     tabla=pd.concat([itera,Xi,ea],axis=1)
     return tabla
 
-fun = input("Ingresa la funcion: ")
-a = float(input("Ingresa intervalo a: "))
-b = float(input("Ingresa intervalo b: "))
-tol = float(input("Ingresa la tolerancia: "))
-ite = float(input("Ingresa las iteraciones: "))
+#fun = input("Ingresa la funcion: ")
+#a = float(input("Ingresa intervalo a: "))
+#b = float(input("Ingresa intervalo b: "))
+#tol = float(input("Ingresa la tolerancia: "))
+#ite = float(input("Ingresa las iteraciones: "))
 
 #res=secante('x**3+x**2+2*x+1',-1,0,0.001,100)
-res=secante(fun,a,b,tol,ite)
-print(res)
+#res=secante(fun,a,b,tol,ite)
+#print(res)

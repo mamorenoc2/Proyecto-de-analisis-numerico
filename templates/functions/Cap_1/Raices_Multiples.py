@@ -41,11 +41,11 @@ def Raices_Multiples(ecuacion,x0,tolerancia,iteraciones):
     return tabla
 
 
-fun = input("Ingresa la funcion: ")
-x0 = float(input("Ingresa X0: "))
-tol = float(input("Ingresa la tolerancia: "))
-ite = float(input("Ingresa las iteraciones: "))
+#fun = input("Ingresa la funcion: ")
+#x0 = float(input("Ingresa X0: "))
+#tol = float(input("Ingresa la tolerancia: "))
+#ite = float(input("Ingresa las iteraciones: "))
 
 #res=Raices_Multiples('x**3+x**2+2*x+1',5,0.01,100)
-res=Raices_Multiples(fun,x0,tol,ite)
-print(res)
+#res=Raices_Multiples(fun,x0,tol,ite)
+#print(res)
