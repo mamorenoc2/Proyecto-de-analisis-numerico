@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from templates.functions.Cap_1.Biseccion import *
 from templates.functions.Cap_1.Busqueda_Incremental import *
 from templates.functions.Cap_1.Punto_Fijo import *
@@ -26,10 +26,22 @@ def inicio_funciones():
 def sobre_proyecto():
     return render_template('sobre_proyecto.html')
 
-@app.route("/bisection")
+@app.route("/bisection", methods=['POST', 'GET'])
 def bisection():
-    result = Bisec('x**10-1',0,0.1,0.01)
-    return render_template('biseccion.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        func = request.form['func']
+        xl = float(request.form['xl'])
+        xu = float(request.form['xu'])
+        es = float(request.form['es'])
+        print(func, xl, xu, es)
+        
+        result = Bisec(func, xl, xu, es)
+        print(result)
+        
+        return render_template('biseccion.html', result=result)
+    
+    return render_template('biseccion.html', result=None)
 
 @app.route("/busqincr")
 def busqincr():
