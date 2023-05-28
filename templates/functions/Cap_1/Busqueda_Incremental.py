@@ -40,11 +40,3 @@ def Busqueda_Incremental(ecuacion, a, b, deltaX):
 #iniamos el programa con lo siguiente parametros
 #res = Busqueda_Incremental('sin(x)',-7,7,0.3)
 
-fun = input("Ingresa la funcion: ")
-a = float(input("Ingresa intervalo a: "))
-b = float(input("Ingresa intervalo b: "))
-dx = float(input("Ingresa dx: "))
-
-res = Busqueda_Incremental(fun,a,b,dx)
-
-print(res)

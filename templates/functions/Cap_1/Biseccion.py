@@ -4,6 +4,7 @@ import numpy as np
 
 x=sp.symbols('x')
 
+
 def funcion(func):
     global x
     return sp.sympify(func)
@@ -53,12 +54,12 @@ def Bisec(func,xl,xu,es):
     tabla=pd.concat([iteracion,xl,xu,xr,ea],axis=1) #unimos en columnas
     return tabla
 
-fun = input("Ingresa la funcion: ")
-xl = float(input("Ingresa intervalo a: "))
-xu = float(input("Ingresa intervalo b: "))
-es = float(input("Ingresa tolerancia: "))
+#fun = input("Ingresa la funcion: ")
+#xl = float(input("Ingresa intervalo a: "))
+#xu = float(input("Ingresa intervalo b: "))
+#es = float(input("Ingresa tolerancia: "))
 
-a=Bisec(fun,xl,xu,es)
+#a=Bisec(fun,xl,xu,es)
 
 #a=Bisec('x**10-1',0,0.1,0.01)
-print(a)
+#print(a)
