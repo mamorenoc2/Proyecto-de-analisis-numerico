@@ -1,4 +1,7 @@
 import numpy as np
+import sympy as sp
+
+x=sp.symbols('x')
 
 def jacobi(A,B,mi):
     A = np.array(A,dtype=float) 
@@ -51,17 +54,17 @@ def defmatrizB(n):
     #print(matriz)
     return matriz
 
-tam = input("ingresa el tamaño de la matriz: ")
+# tam = input("ingresa el tamaño de la matriz: ")
 
-matA = defmatrizA(tam)
-matB = defmatrizB(tam)
-ite = int(input("Numero De iteraciones: "))
+# matA = defmatrizA(tam)
+# matB = defmatrizB(tam)
+# ite = int(input("Numero De iteraciones: "))
 
-resu=jacobi(matA,matB,ite)
+# resu=jacobi(matA,matB,ite)
 
-print("Matriz A: ")
-print(matA)
-print("Matriz B")
-print(matB)
-print("Matriz X: ", resu)
-print("Verificacion Ax=B: ", np.dot(matA,resu))
+# print("Matriz A: ")
+# print(matA)
+# print("Matriz B")
+# print(matB)
+# print("Matriz X: ", resu)
+# print("Verificacion Ax=B: ", np.dot(matA,resu))

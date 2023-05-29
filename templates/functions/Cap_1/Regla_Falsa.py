@@ -51,8 +51,8 @@ def Regla_falsa(ecua,a,b,tolera):
     interfa = pd.Series(m_fa, name="f(a)")
     interfb = pd.Series(m_fb, name="f(b)")
     interxi = pd.Series(m_xi, name="Xi")
-    #interfxi = pd.Series(m_fxi, name="f(xi)")
     interError =pd.Series(m_error,name="Error")
+    #interfxi = pd.Series(m_fxi, name="f(xi)")
 
     tabla=pd.concat([itera,intera,interb,interfa,interfb,interxi,interError],axis=1)
     return tabla

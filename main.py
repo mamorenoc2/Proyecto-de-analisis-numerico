@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+import numpy as np
 from templates.functions.Cap_1.Biseccion import *
 from templates.functions.Cap_1.Busqueda_Incremental import *
 from templates.functions.Cap_1.Punto_Fijo import *
@@ -6,7 +7,7 @@ from templates.functions.Cap_1.Regla_Falsa import *
 from templates.functions.Cap_1.Raices_Multiples import *
 from templates.functions.Cap_1.Newton import *
 from templates.functions.Cap_1.Secante import *
-from templates.functions.Cap_2 import *
+from templates.functions.Cap_2.Jacobi import *
 from templates.functions.Cap_3 import *
 
 app = Flask(__name__)
@@ -35,7 +36,6 @@ def bisection():
         xu = float(request.form['xu'])
         es = float(request.form['es'])
         result = Bisec(func, xl, xu, es)
-        print(result)
         
         return render_template('biseccion.html', result=result)
     
@@ -54,29 +54,76 @@ def busqincr():
         
     return render_template('busqueda_incr.html', result=None)
 
-@app.route("/pf")
+@app.route("/pf", methods=['POST', 'GET'])
 def pf():
-    result = MetodoPF('exp(-x)-x',0,0.01)
-    return render_template('pf.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        ecuacion = request.form['ecuacion']
+        x_0 = float(request.form['x_0'])
+        es = float(request.form['es'])
+        
+        result = MetodoPF(ecuacion, x_0, es)
+        return render_template('pf.html', result=result)
+    
+    return render_template('pf.html', result=None)
 
-@app.route("/falseRule")
+@app.route("/falseRule", methods=['POST', 'GET'])
 def falseRule():
-    result = Regla_falsa('x**3+x**2+2*x+1',-1,0,0.01)
-    return render_template('falseRule.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        ecua = request.form['ecua']
+        a = float(request.form['a'])
+        b = float(request.form['b'])
+        tolera = float(request.form['tolera'])
+        
+        result = Regla_falsa(ecua,a,b,tolera)
+        return render_template('falseRule.html', result=result)
+    
+    return render_template('falseRule.html', result=None)
 
 @app.route("/newton")
 def newton():
     result = Regla_falsa('x**3+x**2+2*x+1',-1,0,0.01)
     return render_template('newton.html', result=result)
 
-@app.route("/multipleRoots")
+@app.route("/multipleRoots", methods=['POST', 'GET'])
 def multipleRoots():
-    result = Raices_Multiples('x**3+x**2+2*x+1',5,0.01,100)
-    return render_template('multipleRoots.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        ecuacion = request.form['ecuacion']
+        x0 = float(request.form['x0'])
+        tolerancia = float(request.form['tolerancia'])
+        iteraciones = float(request.form['iteraciones'])
+        
+        result = Raices_Multiples(ecuacion,x0,tolerancia,iteraciones)
+        return render_template('multipleRoots.html', result=result)
+    
+    return render_template('multipleRoots.html', result=None)
 
-@app.route("/secant")
+@app.route("/secant", methods=['POST', 'GET'])
 def secant():
-    result = secante('x**3+x**2+2*x+1',-1,0,0.001,100)
-    return render_template('secant.html', result=result)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        fx = request.form['fx']
+        a = float(request.form['a'])
+        b = float(request.form['b'])
+        tolera = float(request.form['tolera'])
+        iteraciones = float(request.form['iteraciones'])
+        
+        result = secante(fx,a,b,tolera,iteraciones)
+        return render_template('secant.html', result=result)
+    
+    return render_template('secant.html', result=None)
 
+@app.route("/jacobi" , methods=['POST', 'GET'])
+def jacobi():
+    if request.method == 'POST':
+        tam = int(request.form['tam'])
+        matA = [[float(request.form[f'matA_{i}_{j}']) for j in range(tam)] for i in range(tam)]
+        matB = [[float(request.form[f'matB_{i}'])] for i in range(tam)]
+        ite = int(request.form['ite'])
+        
+        result = jacobi(matA, matB, ite)
+        return render_template('jacobi.html', tam=tam, matA=matA, matB=matB, result=result)
+    
 app.run(host='0.0.0.0', port=81, debug=True)

@@ -1,0 +1,42 @@
+{% extends "layout.html" %} {% block body %}
+<div class="w3-row  w3-margin">
+    <h1>Método de Jacobi</h1>
+    <form method="POST" action="/jacobi">
+        <label for="tam">Tamaño de la matriz:</label>
+        <input type="number" id="tam" name="tam" required><br><br>
+
+        <h2>Matriz A:</h2>
+        <table>
+            <tbody>
+                {% for i in range(tam) %}
+                <tr>
+                    {% for j in range(tam) %}
+                    <td>
+                        <input type="number" name="matA_{{ i }}_{{ j }}" required>
+                    </td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2>Matriz B:</h2>
+        <table>
+            <tbody>
+                {% for i in range(tam) %}
+                <tr>
+                    <td>
+                        <input type="number" name="matB_{{ i }}" required>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <label for="ite">Número de iteraciones:</label>
+        <input type="number" id="ite" name="ite" required><br><br>
+
+        <input type="submit" value="Calcular">
+    </form>
+</div>
+{% endblock %}
