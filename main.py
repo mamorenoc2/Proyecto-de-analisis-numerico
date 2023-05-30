@@ -115,15 +115,20 @@ def secant():
     
     return render_template('secant.html', result=None)
 
-@app.route("/jacobi" , methods=['POST', 'GET'])
+
+@app.route("/jacobi", methods=['POST', 'GET'])
 def jacobi():
     if request.method == 'POST':
-        tam = int(request.form['tam'])
-        matA = [[float(request.form[f'matA_{i}_{j}']) for j in range(tam)] for i in range(tam)]
-        matB = [[float(request.form[f'matB_{i}'])] for i in range(tam)]
-        ite = int(request.form['ite'])
-        
-        result = jacobi(matA, matB, ite)
-        return render_template('jacobi.html', tam=tam, matA=matA, matB=matB, result=result)
+        # Obtener los datos del formulario
+        A = request.form['A']
+        B = request.form['B']
+        ite = float(request.form['ite'])
+        matA = np.matrix(eval(A), dtype=float)
+        matB = np.matrix(eval(B), dtype=float)
+        result = jacobi_m(matA,matB,ite)
+        return render_template('jacobi.html', result=result)
     
+    return render_template('jacobi.html', result=None)
+    
+        
 app.run(host='0.0.0.0', port=81, debug=True)

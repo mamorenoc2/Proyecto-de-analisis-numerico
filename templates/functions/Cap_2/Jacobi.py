@@ -3,8 +3,8 @@ import sympy as sp
 
 x=sp.symbols('x')
 
-def jacobi(A,B,mi):
-    A = np.array(A,dtype=float) 
+def jacobi_m(A,B,mi):
+    A = np.array(A,dtype=float)
     B = np.array(B,dtype=float)
     x=[0.0]*len(B)
     count=0
@@ -17,7 +17,7 @@ def jacobi(A,B,mi):
                     x[i] = float((B[i] - sigma)/A[i,i])
         count +=1
     print("Iteraciones: ",count)
-    return x
+    return x    
 
 #A= [[8,-3,2],[4,11,-1],[6,3,12]]
 #B= [[20],[33],[36]]
