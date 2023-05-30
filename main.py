@@ -51,10 +51,10 @@ def bisection():
 def busqincr():
     if request.method == 'POST':
         # Obtener los datos del formulario
-        ecuacion = request.form['func']
-        a = float(request.form['xl'])
-        b = float(request.form['xu'])
-        deltaX = float(request.form['es'])
+        ecuacion = request.form['ecuacion']
+        a = float(request.form['a'])
+        b = float(request.form['b'])
+        deltaX = float(request.form['deltaX'])
         result, plt = Busqueda_Incremental(ecuacion, a, b, deltaX)
         return render_template('busqueda_incr.html', result=result, plt=plt)
         
@@ -89,8 +89,17 @@ def falseRule():
 
 @app.route("/newton")
 def newton():
-    result, plt = Regla_falsa('x**3+x**2+2*x+1',-1,0,0.01)
-    return render_template('newton.html', result=result, plt=plt)
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        ecuacion = request.form['ecuacion']
+        x_0 = float(request.form['x_0'])
+        es = float(request.form['es'])
+        maxIte =  float(request.form['maxIte'])
+        
+        result, plt = newton(ecuacion,x_0,es,maxIte)
+        return render_template('newton.html', result=result, plt=plt)
+    
+    return render_template('newton.html', result=None, plt=None)
 
 @app.route("/multipleRoots", methods=['POST', 'GET'])
 def multipleRoots():
@@ -129,12 +138,14 @@ def jacobi():
         A = request.form['A']
         B = request.form['B']
         ite = float(request.form['ite'])
+        tol = float(request.form['tol'])
         matA = np.matrix(A)
         matB = np.matrix(B)
         x0 = np.matrix("0; 0; 0")
-        result, tabla = matJacobiSeid(x0,matA,matB,0.00001,ite, 0)
+        result, tabla = matJacobiSeid(x0,matA,matB,tol,ite, 0)
+        
         return render_template('jacobi.html', result=result, tabla=tabla)
-    
+        
     return render_template('jacobi.html', result=None, tabla=None)
 
 @app.route("/seidel", methods=['POST', 'GET'])
@@ -144,10 +155,11 @@ def seidel():
         A = request.form['A']
         B = request.form['B']
         ite = float(request.form['ite'])
+        tol = float(request.form['tol'])
         matA = np.matrix(A)
         matB = np.matrix(B)
         x0 = np.matrix("0; 0; 0")
-        result, tabla = matJacobiSeid(x0,matA,matB,0.00001,ite, 1)
+        result, tabla = matJacobiSeid(x0,matA,matB,tol,ite, 1)
         return render_template('seidel.html', result=result, tabla=tabla)
     
     return render_template('seidel.html', result=None, tabla=None)
@@ -159,10 +171,11 @@ def sor():
         A = request.form['A']
         B = request.form['B']
         ite = float(request.form['ite'])
+        tol = float(request.form['tol'])
         matA = np.matrix(A)
         matB = np.matrix(B)
         x0 = np.matrix("0; 0; 0")
-        result, tabla = SOR(x0,matA,matB,0.00001,ite, 1.2)
+        result, tabla = SOR(x0,matA,matB,tol,ite, 1.2)
         return render_template('sor.html', result=result, tabla=tabla)
     
     return render_template('sor.html', result=None, tabla=None)
