@@ -87,16 +87,16 @@ def falseRule():
     
     return render_template('falseRule.html', result=None, plt=None)
 
-@app.route("/newton")
+@app.route("/newton", methods=['POST', 'GET'])
 def newton():
     if request.method == 'POST':
         # Obtener los datos del formulario
-        ecuacion = request.form['ecuacion']
+        ecuacion = request.form['ecuation']
         x_0 = float(request.form['x_0'])
         es = float(request.form['es'])
         maxIte =  float(request.form['maxIte'])
         
-        result, plt = newton(ecuacion,x_0,es,maxIte)
+        result, plt = newton1(ecuacion,x_0,es,maxIte)
         return render_template('newton.html', result=result, plt=plt)
     
     return render_template('newton.html', result=None, plt=None)

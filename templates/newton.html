@@ -62,7 +62,12 @@
         </div>
     </div>
 </div>
+{% if result is not none %}
 <div>
     {{ result.to_html() | safe}}
 </div>
+<div hidden>
+    {{ plt.show() | safe}}
+</div>
+{% endif %}
 {% endblock %}
