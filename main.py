@@ -8,7 +8,10 @@ from templates.functions.Cap_1.Raices_Multiples import *
 from templates.functions.Cap_1.Newton import *
 from templates.functions.Cap_1.Secante import *
 from templates.functions.Cap_2.Jacobi import *
-from templates.functions.Cap_3 import *
+from templates.functions.Cap_2.SOR import *
+from templates.functions.Cap_3.Vandermonde import *
+from matplotlib import pyplot
+import sympy as sp
 
 app = Flask(__name__)
 
@@ -123,12 +126,53 @@ def jacobi():
         A = request.form['A']
         B = request.form['B']
         ite = float(request.form['ite'])
-        matA = np.matrix(eval(A), dtype=float)
-        matB = np.matrix(eval(B), dtype=float)
-        result = jacobi_m(matA,matB,ite)
-        return render_template('jacobi.html', result=result)
+        matA = np.matrix(A)
+        matB = np.matrix(B)
+        x0 = np.matrix("0; 0; 0")
+        result, tabla = matJacobiSeid(x0,matA,matB,0.00001,ite, 0)
+        return render_template('jacobi.html', result=result, tabla=tabla)
     
-    return render_template('jacobi.html', result=None)
+    return render_template('jacobi.html', result=None, tabla=None)
+
+@app.route("/seidel", methods=['POST', 'GET'])
+def seidel():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        A = request.form['A']
+        B = request.form['B']
+        ite = float(request.form['ite'])
+        matA = np.matrix(A)
+        matB = np.matrix(B)
+        x0 = np.matrix("0; 0; 0")
+        result, tabla = matJacobiSeid(x0,matA,matB,0.00001,ite, 1)
+        return render_template('seidel.html', result=result, tabla=tabla)
     
+    return render_template('seidel.html', result=None, tabla=None)
+
+@app.route("/sor", methods=['POST', 'GET'])
+def sor():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        A = request.form['A']
+        B = request.form['B']
+        ite = float(request.form['ite'])
+        matA = np.matrix(A)
+        matB = np.matrix(B)
+        x0 = np.matrix("0; 0; 0")
+        result, tabla = SOR(x0,matA,matB,0.00001,ite, 1.2)
+        return render_template('sor.html', result=result, tabla=tabla)
+    
+    return render_template('sor.html', result=None, tabla=None)
+
+@app.route("/vandermonde", methods=['POST', 'GET'])
+def vandermonde():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        xi = request.form['xi']
+        yi = request.form['yi']
+        matriz,coeficiente,polinomio,plt = vander(np.fromstring(xi, dtype=float, sep=' '), np.fromstring(yi, dtype=float, sep=' '))
+        return render_template('vandermonde.html', matriz=matriz, coeficiente=coeficiente, polinomio=polinomio, plt=plt)
+    
+    return render_template('vandermonde.html', matriz=None, coeficiente=None, polinomio=None, plt=None)    
         
 app.run(host='0.0.0.0', port=81, debug=True)

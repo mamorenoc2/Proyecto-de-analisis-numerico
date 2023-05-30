@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 
 # PROCEDIMIENTO
-def vandermonde(xi,fi): 
+def vander(xi,fi): 
     muestras = 101 # muestras = tramos+1
     xi = np.array(xi)
     B = np.array(fi)
@@ -38,7 +38,14 @@ def vandermonde(xi,fi):
     b = np.max(xi)
     xin = np.linspace(a,b,muestras)
     yin = px(xin)
-    return D, coeficiente,polinomio, xin, yin
+    plt.plot(xi,fi,'o', label='[xi,fi]')
+    plt.plot(xin,yin, label='p(x)')
+    plt.xlabel('xi')
+    plt.ylabel('fi')
+    plt.legend()
+    plt.title("Vandermonde")
+    matriz=D
+    return matriz, coeficiente,polinomio, plt
 
 # INGRESO
 #xi = [1,2,4.5]
@@ -56,27 +63,27 @@ def defmatriz(n):
     #print(matriz)
     return matriz
 
-tam = input("ingresa el tamaño de los arreglos: ")
+#tam = input("ingresa el tamaño de los arreglos: ")
 
-print("Ingrese los datos de Xi: ")
-xi = defmatriz(tam)
-print("Ingrese los datos Yi: ")
-fi = defmatriz(tam)
+#print("Ingrese los datos de Xi: ")
+#xi = defmatriz(tam)
+#print("Ingrese los datos Yi: ")
+#fi = defmatriz(tam)
 
-(D,coeficiente,polinomio, xin, yin)=vandermonde(xi,fi)
+#(D,coeficiente,polinomio, xin, yin)=vandermonde(xi,fi)
 # SALIDA
-print('Matriz Vandermonde: ')
-print(D)
-print('los coeficientes del polinomio: ')
-print(coeficiente)
-print('Polinomio de interpolación: ')
-print(polinomio)
+#print('Matriz Vandermonde: ')
+#print(D)
+#print('los coeficientes del polinomio: ')
+#print(coeficiente)
+#print('Polinomio de interpolación: ')
+#print(polinomio)
 
 # Grafica
-plt.plot(xi,fi,'o', label='[xi,fi]')
-plt.plot(xin,yin, label='p(x)')
-plt.xlabel('xi')
-plt.ylabel('fi')
-plt.legend()
-plt.title("Vandermonde")
-plt.show()
+#plt.plot(xi,fi,'o', label='[xi,fi]')
+#plt.plot(xin,yin, label='p(x)')
+#plt.xlabel('xi')
+#plt.ylabel('fi')
+#plt.legend()
+#plt.title("Vandermonde")
+#plt.show()

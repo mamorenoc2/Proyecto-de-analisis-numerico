@@ -1,6 +1,7 @@
 import sympy as sp
 import pandas as pd
 import numpy as np
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -15,7 +16,7 @@ def secante(fx,a,b,tolera,iteraciones):
     xi=a
     x0=b
     c=0
-
+    plt = plot(fx, show=False)
     m_itera=np.array([]) 
     m_x0=np.array([])   
     m_error=np.array([])
@@ -39,7 +40,7 @@ def secante(fx,a,b,tolera,iteraciones):
     ea = pd.Series(m_error,name="Error")
 
     tabla=pd.concat([itera,Xi,ea],axis=1)
-    return tabla
+    return tabla, plt
 
 #fun = input("Ingresa la funcion: ")
 #a = float(input("Ingresa intervalo a: "))

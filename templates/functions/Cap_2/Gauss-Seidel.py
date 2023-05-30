@@ -6,6 +6,10 @@ import numpy as np
 def Gauss_Seidel(A,B,X0,tolera,iteramax):
   A = np.array(A,dtype=float) 
   B = np.array(B,dtype=float)
+  D = np.diag(np.diag(A))
+  L = -np.tril(A, -1)
+  U = -np.triu(A, 1)
+  T = np.linalg.inv(D - L) @ (D + U)
   tamano = np.shape(A)
   n = tamano[0]
   m = tamano[1]
@@ -82,23 +86,23 @@ def defmatrizB(n):
     #print(matriz)
     return matriz
 
-tam = input("ingresa el tamaño de la matriz: ")
+#tam = input("ingresa el tamaño de la matriz: ")
 
-matA = defmatrizA(tam)
-print("Ingrese los datos de la matriz B: ")
-matB = defmatrizB(tam)
-print("Ingrese los datos de la matriz X0: ")
-X0  =defmatrizB(tam)
-tolera = float(input("ingresa la tolerancia: "))
-iteramax = int(input("ingresa las iteraciones: "))
-(X, verifica) = Gauss_Seidel(matA,matB,X0,tolera,iteramax)
+#matA = defmatrizA(tam)
+#print("Ingrese los datos de la matriz B: ")
+#matB = defmatrizB(tam)
+#print("Ingrese los datos de la matriz X0: ")
+#X0  =defmatrizB(tam)
+#tolera = float(input("ingresa la tolerancia: "))
+#iteramax = int(input("ingresa las iteraciones: "))
+#(X, verifica) = Gauss_Seidel(matA,matB,X0,tolera,iteramax)
 
 # SALIDA
-print("Matriz A:")
-print(matA)
-print("Matriz B: ")
-print(matB)
-print('respuesta X: ')
-print(X)
-print('verificar A.X=B: ')
-print(verifica)
+#print("Matriz A:")
+#print(matA)
+#print("Matriz B: ")
+#print(matB)
+#print('respuesta X: ')
+#print(X)
+#print('verificar A.X=B: ')
+#print(verifica)
