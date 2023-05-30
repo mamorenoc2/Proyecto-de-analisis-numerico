@@ -13,4 +13,10 @@ To activate:
 -activate.bat
 to deactivate:
 
--deactivate.bat
+-deactivate.bat0
+
+## Paquetes a instalar
+
+pip install matplotlib
+pip install sympy 
+pip install pandas
