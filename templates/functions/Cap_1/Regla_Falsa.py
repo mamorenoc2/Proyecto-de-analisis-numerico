@@ -37,7 +37,11 @@ def Regla_falsa(ecua,a,b,tolera):
         m_xi=np.append(m_xi,c)
         #m_fxi=np.append(m_fxi,fc)
         cambio = np.sign(fa)*np.sign(fc)
-        if cambio>0:
+        if np.sign(fa) == np.sign(fb):
+            print("Error: La función no tiene un cambio de signo en el intervalo dado.")
+            return None, None
+        if cambio>=0:
+            
             tramo = abs(c-a)
             m_error=np.append(m_error,tramo)
             a = c
