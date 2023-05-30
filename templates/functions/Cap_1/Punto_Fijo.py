@@ -1,6 +1,7 @@
 import sympy as sp
 import numpy as np
 import pandas as pd
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -11,6 +12,7 @@ def funcion(ecua='x+2'):
 def MetodoPF(ecuacion,x_0,es):
     global x
     ecuacion=funcion(ecuacion)+x 
+    plt = plot(ecuacion, show=False)
     ea=100
     x_r=x_0 
     iteracion=0 
@@ -34,7 +36,7 @@ def MetodoPF(ecuacion,x_0,es):
     interError =pd.Series(m_error,name="Error")
 
     tabla=pd.concat([itera,interXi,interError],axis=1)
-    return tabla
+    return tabla, plt
 
 #iniamos el programa con lo siguiente parametros
 #a=MetodoPF('exp(-x)-x',0,0.01)

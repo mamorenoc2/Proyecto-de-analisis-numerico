@@ -68,53 +68,15 @@ def Diferencias_Divididas(xi,fi):
     pxi = np.linspace(a,b,muestras)
     pfi = px(pxi)
 
-    # SALIDA
-    """np.set_printoptions(precision = 4)
-    print('Tabla Diferencia Dividida')
-    print([titulo])
-    print(tabla)
-    print('dDividida: ')
-    print(dDividida)
-    print('polinomio: ')
-    print(polinomio)
-    print('polinomio simplificado: ' )
-    print(polisimple)"""
+    plt.plot(xi,fi,'o', label = 'Puntos')
+    plt.plot(pxi,pfi, label = 'Polinomio')
+    plt.legend()
+    plt.xlabel('xi')
+    plt.ylabel('fi')
+    plt.title(polinomio)
 
-    return polisimple, pxi, pfi
+    return polisimple, plt
 
 # INGRESO , Datos de prueba
 '''xi = np.array([1,2,4.5])
 fi = np.array([2.5,5,6.7])'''
-
-def defmatriz(n):
-    '''n = int(input("ingrese filas"))
-    m = int(input("ingrese columnas"))'''
-    #a = n*m
-    matriz = []
-    n = int(n)
-    #val = float(input("ingrese dato: "))
-    matriz = [float(input("ingrese dato: ")) for i in range(n)] 
-
-    #print(matriz)
-    return matriz
-
-tam = input("ingresa el tamaño de los arreglos: ")
-
-print("Ingrese los datos de Xi: ")
-xi = defmatriz(tam)
-print("Ingrese los datos Yi: ")
-fi = defmatriz(tam)
-
-polinomio,pxi,pfi=Diferencias_Divididas(xi,fi)
-print("Polinomio: ", polinomio)
-
-# Gráfica
-plt.plot(xi,fi,'o', label = 'Puntos')
-##for i in range(0,n,1):
-##    plt.axvline(xi[i],ls='--', color='yellow')
-plt.plot(pxi,pfi, label = 'Polinomio')
-plt.legend()
-plt.xlabel('xi')
-plt.ylabel('fi')
-plt.title(polinomio)
-plt.show()

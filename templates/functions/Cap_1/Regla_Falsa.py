@@ -1,6 +1,7 @@
 import sympy as sp
 import numpy as np
 import pandas as pd
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -12,6 +13,7 @@ def Regla_falsa(ecua,a,b,tolera):
     global x
     ecuacion=funcion(ecua)
     tramo = abs(b-a)
+    plt = plot(ecuacion, show=False)
     iteracion = 0
     fa = ecuacion.evalf(subs={x:a})
     fb = ecuacion.evalf(subs={x:b})
@@ -55,7 +57,7 @@ def Regla_falsa(ecua,a,b,tolera):
     #interfxi = pd.Series(m_fxi, name="f(xi)")
 
     tabla=pd.concat([itera,intera,interb,interfa,interfb,interxi,interError],axis=1)
-    return tabla
+    return tabla, plt
 
 #fun = input("Ingresa la funcion: ")
 #a = float(input("Ingresa intervalo a: "))

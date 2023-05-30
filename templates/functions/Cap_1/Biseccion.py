@@ -1,6 +1,7 @@
 import sympy as sp
 import pandas as pd
 import numpy as np
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -13,6 +14,7 @@ def funcion(func):
 def Bisec(func,xl,xu,es):
     func=funcion(func)
     itera=0 
+    plt = plot(func, show=False)
     m_itera=np.array([]) #matriz q almacena valores de itera
     m_xl=np.array([])   #matriz q alamacena valores de xl
     m_xu=np.array([])   #matriz q alamcena valores de xu
@@ -52,7 +54,7 @@ def Bisec(func,xl,xu,es):
     xr=pd.Series(m_xr,name="Raiz")
     ea=pd.Series(m_ea,name="Error")
     tabla=pd.concat([iteracion,xl,xu,xr,ea],axis=1) #unimos en columnas
-    return tabla
+    return tabla, plt
 
 #fun = input("Ingresa la funcion: ")
 #xl = float(input("Ingresa intervalo a: "))

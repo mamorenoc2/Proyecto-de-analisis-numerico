@@ -1,6 +1,7 @@
 import sympy as sp
 import pandas as pd
 import numpy as np
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -13,6 +14,7 @@ def Busqueda_Incremental(ecuacion, a, b, deltaX):
     ecuacion=funcion(ecuacion)
 
     iteracion=0
+    plt = plot(ecuacion, show=False)
     m_itera=np.array([])
     m_a=np.array([])
     m_xi=np.array([])
@@ -33,7 +35,7 @@ def Busqueda_Incremental(ecuacion, a, b, deltaX):
         interXi =pd.Series(m_xi,name="Xi")
 
         tabla=pd.concat([itera,interA,interXi],axis=1)
-    return tabla
+    return tabla, plt
         
 
 

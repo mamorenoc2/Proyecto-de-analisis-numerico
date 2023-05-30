@@ -1,6 +1,7 @@
 import sympy as sp
 import pandas as pd
 import numpy as np
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -13,7 +14,7 @@ def Raices_Multiples(ecuacion,x0,tolerancia,iteraciones):
     ecuacion=funcion(ecuacion)
     derivada1 = sp.diff(ecuacion,x)
     derivada2 = sp.diff(derivada1,x)
-
+    plt = plot(ecuacion, show=False)
     m_itera=np.array([])   
     m_t=np.array([])   
     m_error=np.array([])
@@ -38,7 +39,7 @@ def Raices_Multiples(ecuacion,x0,tolerancia,iteraciones):
     ea = pd.Series(m_error,name="Error")
 
     tabla=pd.concat([itera,raiz,ea],axis=1)
-    return tabla
+    return tabla, plt
 
 
 #fun = input("Ingresa la funcion: ")

@@ -1,5 +1,5 @@
 import sympy as sp
-
+from sympy.plotting import plot
 
 x=sp.symbols('x')
 
@@ -11,6 +11,7 @@ def newton(ecuacion,x_0,es,maxIte):
     global x
     ecuacion=funcion(ecuacion)
     derivada=sp.diff(ecuacion)
+    plt = plot(ecuacion, show=False)
     f_NR=x-(ecuacion/derivada)#formula de Newton Rhapson
     ea=100 #error aproximado 100%
     x_r=x_0 #x_i+1
@@ -27,7 +28,7 @@ def newton(ecuacion,x_0,es,maxIte):
         if interaciones>=maxIte:
             #print("\nEl metodo no converge\n")
             break
-    return x_r
+    return x_r, plt
 #iniamos el programa con lo siguiente parametros
 #ecua=input("Ecuacion: ")
 #x_0=float(input("X0: "))

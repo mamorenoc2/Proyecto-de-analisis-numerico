@@ -10,6 +10,9 @@ from templates.functions.Cap_1.Secante import *
 from templates.functions.Cap_2.Jacobi import *
 from templates.functions.Cap_2.SOR import *
 from templates.functions.Cap_3.Vandermonde import *
+from templates.functions.Cap_3.Diferencias_Divididas import *
+from templates.functions.Cap_3.Spline_Grado1 import *
+from templates.functions.Cap_3.Spline_Grado2 import *
 from matplotlib import pyplot
 import sympy as sp
 
@@ -38,11 +41,11 @@ def bisection():
         xl = float(request.form['xl'])
         xu = float(request.form['xu'])
         es = float(request.form['es'])
-        result = Bisec(func, xl, xu, es)
+        result, plt = Bisec(func, xl, xu, es)
         
-        return render_template('biseccion.html', result=result)
+        return render_template('biseccion.html', result=result, plt=plt)
     
-    return render_template('biseccion.html', result=None)
+    return render_template('biseccion.html', result=None, plt=None)
 
 @app.route("/busqincr", methods=['POST', 'GET'])
 def busqincr():
@@ -52,10 +55,10 @@ def busqincr():
         a = float(request.form['xl'])
         b = float(request.form['xu'])
         deltaX = float(request.form['es'])
-        result = Busqueda_Incremental(ecuacion, a, b, deltaX)
-        return render_template('busqueda_incr.html', result=result)
+        result, plt = Busqueda_Incremental(ecuacion, a, b, deltaX)
+        return render_template('busqueda_incr.html', result=result, plt=plt)
         
-    return render_template('busqueda_incr.html', result=None)
+    return render_template('busqueda_incr.html', result=None, plt=None)
 
 @app.route("/pf", methods=['POST', 'GET'])
 def pf():
@@ -65,10 +68,10 @@ def pf():
         x_0 = float(request.form['x_0'])
         es = float(request.form['es'])
         
-        result = MetodoPF(ecuacion, x_0, es)
-        return render_template('pf.html', result=result)
+        result, plt = MetodoPF(ecuacion, x_0, es)
+        return render_template('pf.html', result=result, plt=plt)
     
-    return render_template('pf.html', result=None)
+    return render_template('pf.html', result=None, plt=None)
 
 @app.route("/falseRule", methods=['POST', 'GET'])
 def falseRule():
@@ -79,15 +82,15 @@ def falseRule():
         b = float(request.form['b'])
         tolera = float(request.form['tolera'])
         
-        result = Regla_falsa(ecua,a,b,tolera)
-        return render_template('falseRule.html', result=result)
+        result, plt = Regla_falsa(ecua,a,b,tolera)
+        return render_template('falseRule.html', result=result, plt=plt)
     
-    return render_template('falseRule.html', result=None)
+    return render_template('falseRule.html', result=None, plt=None)
 
 @app.route("/newton")
 def newton():
-    result = Regla_falsa('x**3+x**2+2*x+1',-1,0,0.01)
-    return render_template('newton.html', result=result)
+    result, plt = Regla_falsa('x**3+x**2+2*x+1',-1,0,0.01)
+    return render_template('newton.html', result=result, plt=plt)
 
 @app.route("/multipleRoots", methods=['POST', 'GET'])
 def multipleRoots():
@@ -98,10 +101,10 @@ def multipleRoots():
         tolerancia = float(request.form['tolerancia'])
         iteraciones = float(request.form['iteraciones'])
         
-        result = Raices_Multiples(ecuacion,x0,tolerancia,iteraciones)
-        return render_template('multipleRoots.html', result=result)
+        result, plt = Raices_Multiples(ecuacion,x0,tolerancia,iteraciones)
+        return render_template('multipleRoots.html', result=result, plt=plt)
     
-    return render_template('multipleRoots.html', result=None)
+    return render_template('multipleRoots.html', result=None, plt=None)
 
 @app.route("/secant", methods=['POST', 'GET'])
 def secant():
@@ -113,10 +116,10 @@ def secant():
         tolera = float(request.form['tolera'])
         iteraciones = float(request.form['iteraciones'])
         
-        result = secante(fx,a,b,tolera,iteraciones)
-        return render_template('secant.html', result=result)
+        result, plt = secante(fx,a,b,tolera,iteraciones)
+        return render_template('secant.html', result=result, plt=plt)
     
-    return render_template('secant.html', result=None)
+    return render_template('secant.html', result=None, plt=None)
 
 
 @app.route("/jacobi", methods=['POST', 'GET'])
@@ -174,5 +177,28 @@ def vandermonde():
         return render_template('vandermonde.html', matriz=matriz, coeficiente=coeficiente, polinomio=polinomio, plt=plt)
     
     return render_template('vandermonde.html', matriz=None, coeficiente=None, polinomio=None, plt=None)    
+
+@app.route("/divdif", methods=['POST', 'GET'])
+def divdif():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        xi = request.form['xi']
+        yi = request.form['yi']
+        polinomio,plt = Diferencias_Divididas(np.fromstring(xi, dtype=float, sep=' '), np.fromstring(yi, dtype=float, sep=' '))
+        return render_template('divdif.html', polinomio=polinomio, plt=plt)
+    
+    return render_template('divdif.html', polinomio=None, plt=None)  
+
+@app.route("/spline1", methods=['POST', 'GET'])
+def spline1():
+    if request.method == 'POST':
+        # Obtener los datos del formulario
+        xi = request.form['xi']
+        yi = request.form['yi']
+        tabla = trazalineal(np.fromstring(xi, dtype=float, sep=' '), np.fromstring(yi, dtype=float, sep=' '))
+        tabla2 = traza3natural(np.fromstring(xi, dtype=float, sep=' '), np.fromstring(yi, dtype=float, sep=' '))
+        return render_template('spline1.html', tabla=tabla, plt=None)
+    
+    return render_template('spline1.html', tabla=None, plt=None)  
         
 app.run(host='0.0.0.0', port=81, debug=True)
