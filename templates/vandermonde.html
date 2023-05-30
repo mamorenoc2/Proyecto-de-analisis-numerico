@@ -37,13 +37,13 @@
     </div>
     <div class="w3-col s8 w3-center w3-padding">
         {% if polinomio is not none %}
-        <div>
-            {{ polinomio | safe}}
+        <div class="w3-padding w3-container w3-center">
+            <h1>Polinomio</h1>
+            <h1>{{ polinomio | safe}}</h1>
         </div>
-    </br>
-    </br>
-        <div>
-            {{ coeficiente | safe }}
+    <div class="w3-padding w3-container">
+        <h2 class="w3-center w3-red w3-block">Coeficientes</h2> 
+        <h2>{{ coeficiente | safe }}</h2>
         </div>
     </br>
 </br>
